@@ -1,0 +1,36 @@
+server:
+  os: CentOS 7
+  user: hjk4090d
+  conda_env: micro
+  python: "3.10"
+
+paths:
+  raw_root: /home/hjk4090d/microscopy_project/raw
+  output_root: /home/hjk4090d/microscopy_project
+  manifest_dir: /home/hjk4090d/microscopy_project/manifests
+  qc_preview_dir: /home/hjk4090d/microscopy_project/qc_preview
+
+expected_samples:
+  MCF10A_copy02:
+    files: [dic-sub1.tif, mcy-sub1.tif]
+    expected_shape: [101, 1024, 1024]
+    expected_dtype: uint16
+  MCF10A_copy11:
+    files: [dic-sub1.tif, mcy-sub1.tif]
+    expected_shape: [101, 1024, 1024]
+    expected_dtype: uint16
+  copy_of_1_xy01:
+    files: [dic.tif, mcy.tif]
+    expected_shape: [369, 2048, 2048]
+    expected_dtype: uint16
+  copy_of_xy_19:
+    files: [dic.tif, mcy.tif]
+    expected_shape: [369, 2048, 2048]
+    expected_dtype: uint16
+
+data_model:
+  first_axis: time
+  abstract_shape: T x C x H x W
+  channels: [DIC, MCY]
+  channel_count: 2
+  lazy_read_api: tif.pages[t].asarray()

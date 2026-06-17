@@ -1,0 +1,45 @@
+# Python caches and local environment
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+.env
+local_config.yaml
+.hive/
+
+# Raw microscopy data and large generated arrays
+*.tif
+*.tiff
+*.zip
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.zarr/
+raw/
+data/
+datasets/
+
+# Generated outputs
+qc_preview/
+processed/
+outputs/
+manifests/
+models/
+checkpoints/
+broken_zip/
+zip_rescue/
+salvaged_from_broken_zip/
+inspect*/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

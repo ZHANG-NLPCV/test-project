@@ -30,6 +30,12 @@ datasets/
 # Generated outputs
 runs/
 *.pt
+frameunet_*_epoch_log.csv
+frameunet_*_metrics.csv
+frameunet_*_summary.csv
+frameunet_*_summary.json
+frameunet_*_config.json
+prediction_overlays/
 qc_preview/
 processed/
 outputs/

@@ -16,6 +16,7 @@ local_config.yaml
 # Raw microscopy data and large generated arrays
 *.tif
 *.tiff
+*.png
 *.zip
 *.npy
 *.npz
@@ -27,6 +28,8 @@ data/
 datasets/
 
 # Generated outputs
+runs/
+*.pt
 qc_preview/
 processed/
 outputs/

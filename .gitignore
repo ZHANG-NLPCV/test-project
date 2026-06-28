@@ -35,6 +35,10 @@ frameunet_*_metrics.csv
 frameunet_*_summary.csv
 frameunet_*_summary.json
 frameunet_*_config.json
+planb_*_epoch_log.csv
+planb_*_metrics.csv
+planb_*_summary.json
+planb_*_config.json
 prediction_overlays/
 qc_preview/
 processed/

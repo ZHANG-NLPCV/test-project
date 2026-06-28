@@ -9,3 +9,5 @@ scikit-image
 opencv-python
 torch
 pytest
+motmetrics
+imagesize

@@ -66,14 +66,49 @@ pip install SC-Track          # or clone chan-labsite/SC-Track
 sctrack -p <out-dir>/sctrack_input/MCF10A_copy02.tif   # -> track.csv
 ```
 
-### Step 3 — evaluate against public GT
+### Step 3 — evaluate against public GT (one command)
 
-Get GT tables from Zenodo 10441055 `tracking results.zip` (per sample), then:
+Get GT tables from Zenodo 10441055 `tracking results.zip` (per sample, named
+`<sample_id>*.csv`). Then `scripts/run_sctrack_eval.py` chains SC-Track +
+motmetrics into a single per-sample IDF1/MOTA table. It mirrors
+`evaluate-MOT.py`'s computation but without that script's hard-coded paths, and
+it aliases column names / rebases frame indices to absorb GT-vs-prediction
+schema drift.
+
+Full run (export tif present, SC-Track installed, GT downloaded):
+
+```bash
+pip install motmetrics imagesize          # added to this repo's requirements.txt
+python scripts/run_sctrack_eval.py \
+  --tif-dir   <out-dir>/sctrack_input \
+  --sctrack-cmd 'sctrack -p {tif} -o {out}' \
+  --gt-dir    /home/hjk4090d/microscopy_project/external/sctrack/tracking_results \
+  --out-dir   <out-dir>/sctrack_eval \
+  --rebase-frames
+```
+
+Eval-only (you already have `track.csv` per sample under `--track-dir`):
+
+```bash
+python scripts/run_sctrack_eval.py \
+  --track-dir <dir of <sample>.csv> \
+  --gt-dir    <dir of GT <sample>.csv> \
+  --out-dir   <out-dir>/sctrack_eval \
+  --rebase-frames
+```
+
+Output: `<out-dir>/sctrack_eval/sctrack_mot_summary.csv` (per sample + an
+object-weighted mean row). Ends with `RUN_SCTRACK_EVAL_OK`.
+
+> **Verify columns on the first run.** The script prints a `column resolution`
+> line for both `gt` and `pred`; the GT schema could not be confirmed offline.
+> If a field resolves wrong (e.g. `center_x<-None`), add the real name to
+> `COLUMN_ALIASES` in the script or pre-rename the CSV before trusting numbers.
+
+For CTC SEG/TRA (separate path), use the reference scripts directly:
 
 ```bash
 git clone https://github.com/chan-labsite/SC-Track-evaluation
-pip install motmetrics imagesize          # added to this repo's requirements.txt
-python SC-Track-evaluation/evaluate-MOT.py            # IDF1 / MOTA  vs track-GT.csv
 python SC-Track-evaluation/prepare_TRA_compute_data.py # build CTC RES/GT, then run CTC-EvaluationSoftware
 ```
 
